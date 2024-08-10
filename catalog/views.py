@@ -15,3 +15,7 @@ def contacts(request):
               f'{message} ')
 
     return render(request, 'contacts.html')
+
+
+def base(request):
+    return render(request, 'base.html')
