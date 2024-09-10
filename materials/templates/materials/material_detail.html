@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col-6">
+                <div class="card ">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            материал "{{ object.title }}" ({{ object.slug }})
+                        </h3>
+
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            {{ object.body }}
+                        </p>
+                        <a href="{% url 'materials:list' %}" class="btn btn-warning">Отмена</a>
+
+                    </div>
+                    <div class="card-footer">
+                        Просмотры: {{ object.views_count }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

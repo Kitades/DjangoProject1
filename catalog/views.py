@@ -1,10 +1,11 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'catalog/home.html')
 
 
 def contacts(request):
@@ -16,20 +17,27 @@ def contacts(request):
               f'{phone}, '
               f'{message} ')
 
-    return render(request, 'contacts.html')
+    return render(request, 'catalog/contacts.html')
 
 
-def base(request):
-    products = Product.objects.all()
-    context = {'base': products}
-    return render(request, 'product_list.html', context)
+class CatalogListView(ListView):  # app_name/<model_name>_<action> --> catalog/product_list
+    model = Product
 
 
-def base_product(request, pk):
-    product = Product.objects.get(pk=pk)
-    """
-        get_object_or_404(Product, pk=pk) вместо Product.objects.get
-        выдаст -- Page not found -- если id нет а не ошибку
-    """
-    context = {'base': product}
-    return render(request, 'base_product.html', context)
+# def base(request):
+#     products = Product.objects.all()
+#     context = {'object_list': products}
+#     return render(request, 'product_list.html', context)
+
+
+class CatalogDetailView(DetailView):
+    model = Product
+
+# def base_product(request, pk):
+#     product = Product.objects.get(pk=pk)
+#     """
+#         get_object_or_404(Product, pk=pk) вместо Product.objects.get
+#         выдаст -- Page not found -- если id нет а не ошибку
+#     """
+#     context = {'base': product}
+#     return render(request, 'catalog/product_detail.html', context)
