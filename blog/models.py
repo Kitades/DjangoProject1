@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Material(models.Model):
+class Blog(models.Model):
     title = models.CharField(max_length=150, verbose_name="Название")
     slug = models.CharField(max_length=30, verbose_name="Ссылка", null=True, blank=True)
     body = models.TextField(verbose_name="Содержимое")
@@ -16,5 +16,5 @@ class Material(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = "Материал"
-        verbose_name_plural = "Материалы"
+        verbose_name = "блог"
+        verbose_name_plural = "блоги"

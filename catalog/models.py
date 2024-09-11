@@ -26,6 +26,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name="Цена")
     created_at = models.DateTimeField(verbose_name="Дата создания")
     updated_at = models.DateTimeField(verbose_name="Дата изменения")
+
     # manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', null=True, blank=True)
 
     def __str__(self):
@@ -42,3 +43,17 @@ class Product(models.Model):
             "price",
             "category",
         ]
+
+
+class Subject(models.Model):
+    title = models.CharField(max_length=150, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание')
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+
+    def __str__(self):
+        return f"{self.title}"
+
+    class Meta:
+        verbose_name = "Предмет"
+        verbose_name_plural = "Предметы"

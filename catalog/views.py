@@ -1,7 +1,10 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.models import Product
+from catalog.forms import ProductForm, SubjectForm
+from catalog.models import Product, Subject
 
 
 def home(request):
@@ -24,20 +27,28 @@ class CatalogListView(ListView):  # app_name/<model_name>_<action> --> catalog/p
     model = Product
 
 
-# def base(request):
-#     products = Product.objects.all()
-#     context = {'object_list': products}
-#     return render(request, 'product_list.html', context)
-
-
 class CatalogDetailView(DetailView):
     model = Product
 
-# def base_product(request, pk):
-#     product = Product.objects.get(pk=pk)
-#     """
-#         get_object_or_404(Product, pk=pk) вместо Product.objects.get
-#         выдаст -- Page not found -- если id нет а не ошибку
-#     """
-#     context = {'base': product}
-#     return render(request, 'catalog/product_detail.html', context)
+
+class CatalogProductDelete(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:list')
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:list')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        SubjectFormset = inlineformset_factory(Product, Subject, form=SubjectForm, extra=1)
+        context_data['formset'] = SubjectFormset()
+        return context_data

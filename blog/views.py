@@ -3,13 +3,13 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
 
-from materials.models import Material
+from blog.models import Blog
 
 
-class MaterialCreateView(CreateView):
-    model = Material  # your model
+class BlogCreateView(CreateView):
+    model = Blog  # your model
     fields = '__all__'  # all fields from model
-    success_url = reverse_lazy('materials:list')
+    success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -20,10 +20,10 @@ class MaterialCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MaterialUpdateView(UpdateView):
-    model = Material  # your model
+class BlogUpdateView(UpdateView):
+    model = Blog  # your model
     fields = '__all__'  # all fields from model
-    # success_url = reverse_lazy('materials:list')
+    # success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -34,19 +34,19 @@ class MaterialUpdateView(UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('materials:view', args=[self.kwargs.get('pk')])
+        return reverse('blog:view', args=[self.kwargs.get('pk')])
 
 
-class MaterialListView(ListView):
-    model = Material
+class BlogListView(ListView):
+    model = Blog
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
         return queryset.filter(publication=True)
 
 
-class MaterialDetailView(DetailView):
-    model = Material
+class BlogDetailView(DetailView):
+    model = Blog
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -55,6 +55,6 @@ class MaterialDetailView(DetailView):
         return self.object
 
 
-class MaterialDeleteView(DeleteView):
-    model = Material
-    success_url = reverse_lazy('materials:list')
+class BlogDeleteView(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('blog:list')
