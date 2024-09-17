@@ -2,7 +2,7 @@
 {% load my_tags %}
 {% load tags_sp %}
 {% block content %}
-<div class="col-12 mb-5">
+<div class="col-12~ mb-5">
     <a class="btn-btn-outline-primary" href="{% url 'catalog:create' %}">ADD PRODUCT</a>
 </div>
 <div class="album py-5 bg-body-tertiary">
@@ -21,6 +21,8 @@
                                    role="button">Link</a>
                                 <a class="btn btn-primary" href="{% url 'catalog:update' obj.pk %}"
                                    role="button">Update</a>
+                                <a class="btn btn-primary" href="{% url 'catalog:delete' obj.pk %}"
+                                   role="button">Delete</a>
                             </div>
 
                         </div>

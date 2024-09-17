@@ -24,8 +24,8 @@ class Product(models.Model):
         Category, on_delete=models.CASCADE, verbose_name="Категория"
     )
     price = models.IntegerField(verbose_name="Цена")
-    created_at = models.DateTimeField(verbose_name="Дата создания")
-    updated_at = models.DateTimeField(verbose_name="Дата изменения")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата изменения")
 
     # manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', null=True, blank=True)
 
@@ -45,15 +45,15 @@ class Product(models.Model):
         ]
 
 
-class Subject(models.Model):
-    title = models.CharField(max_length=150, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
-
+class Version(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    name_version = models.CharField(max_length=150, verbose_name='Название')
+    number_version = models.IntegerField(null=True, blank=True, verbose_name='Номер версии')
+    current_version = models.BooleanField(default=False, verbose_name='Tекущая версия')
 
     def __str__(self):
-        return f"{self.title}"
+        return f"{self.name_version}"
 
     class Meta:
-        verbose_name = "Предмет"
-        verbose_name_plural = "Предметы"
+        verbose_name = "Версия"
+        verbose_name_plural = "Версии"
