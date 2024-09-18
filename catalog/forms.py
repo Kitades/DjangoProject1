@@ -6,7 +6,7 @@ from catalog.models import Product, Version
 
 
 class StyleFormMixin:
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):  # делает красивые рамки для ввода
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if isinstance(field, BooleanField):
