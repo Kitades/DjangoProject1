@@ -51,6 +51,7 @@ class Version(models.Model):
     number_version = models.IntegerField(null=True, blank=True, verbose_name='Номер версии')
     current_version = models.BooleanField(default=False, verbose_name='Tекущая версия')
 
+
     def __str__(self):
         return f"{self.name_version}"
 

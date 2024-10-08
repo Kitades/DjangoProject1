@@ -10,8 +10,15 @@
                 <ul class="list-unstyled">
                     <li><a href="{% url 'catalog:list' %}" class="text-white">base</a></li>
                     <li><a href="{% url 'catalog:home' %}" class="text-white">home</a></li>
-                    <li><a href="{% url 'catalog:contacts' %}" class="text-white">contacts</a></li>
-                    <li><a href="{% url 'blog:list' %}" class="text-white">list</a></li>
+                    <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
+                    <li><a href="{% url 'blog:list' %}" class="text-white">Список</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'users:logout' %}" class="text-white">Выйти</a></li>
+                    <li><a href="{% url 'users:profile' %}" class="text-white">Профиль</a></li>
+                    {% else %}
+                    <li><a href="{% url 'users:login' %}" class="text-white">Войти</a></li>
+                    <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
