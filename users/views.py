@@ -32,8 +32,6 @@ class RegisterView(CreateView):
             from_email=EMAIL_HOST_USER,
             recipient_list=[user.email],
         )
-        user_active = self.request.user
-        user_active.save()
         return super().form_valid(form)
 
 
