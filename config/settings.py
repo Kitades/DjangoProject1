@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'blog',
     'users',
 ]
-SITE_ID = 1
+SITE_FID = 1
+SITE_URL = 'http://127.0.0.1/'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -137,3 +138,5 @@ EMAIL_USE_SSL = True
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+

@@ -32,6 +32,8 @@ class RegisterView(CreateView):
             from_email=EMAIL_HOST_USER,
             recipient_list=[user.email],
         )
+        user_active = self.request.user
+        user_active.save()
         return super().form_valid(form)
 
 
@@ -75,27 +77,6 @@ class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView
         context = super().get_context_data(**kwargs)
         context['title'] = 'Установить новый пароль'
         return context
-
-
-# def password_change(request, token):
-#     user = get_object_or_404(User, token=token)
-#     if request.method == 'POST':
-#         form =
-#         if form.is_valid():
-#             new_pass = user.set_password(form.cleaned_data['new_password'])
-#             user.save()
-#             update_session_auth_hash(request, user)
-#             send_mail(
-#                 subject='Изменение пароля',
-#                 message=f'Ваш пароль был изменен на {new_pass}',
-#                 from_email=EMAIL_HOST_USER,
-#                 recipient_list=[user.email],
-#             )
-#             return redirect(reverse("users:login"))
-#         # else:
-#         #     form = PasswordChangeForm(user)
-#     #
-#     # return render(request, 'users/user_password_reset.html', {'form': form})
 
 
 class ProfileView(UpdateView):
