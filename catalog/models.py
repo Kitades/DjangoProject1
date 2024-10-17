@@ -2,8 +2,6 @@ from users.models import User
 from django.db import models
 
 
-
-
 class Category(models.Model):
     name = models.CharField(max_length=30, verbose_name="Название")
     description = models.CharField(max_length=100, verbose_name="Описание")
@@ -29,14 +27,15 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name="Цена")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата изменения")
-    owner = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name="Пользователь",null=True, blank=True )
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name="Пользователь", null=True, blank=True)
+
+    is_published = models.BooleanField(default=False)
 
     # manufactured_at = models.DateTimeField(verbose_name='Дата производства продукта', null=True, blank=True)
 
     def __str__(self):
         return (
-            f"{self.name}, {self.description}, {self.imagen}, {self.category}, {self.price}, "
-            f"{self.created_at}, {self.updated_at}"
+            f"{self.name}, {self.description}"
         )
 
     class Meta:
@@ -47,6 +46,11 @@ class Product(models.Model):
             "price",
             "category",
         ]
+        permissions = [
+            ('set_published', 'Can publish product'),
+            ('can_change_description', 'Can change description'),
+            ('can_change_category', 'Can change category')
+        ]
 
 
 class Version(models.Model):
@@ -54,7 +58,6 @@ class Version(models.Model):
     name_version = models.CharField(max_length=150, verbose_name='Название')
     number_version = models.IntegerField(null=True, blank=True, verbose_name='Номер версии')
     current_version = models.BooleanField(default=False, verbose_name='Tекущая версия')
-
 
     def __str__(self):
         return f"{self.name_version}"
